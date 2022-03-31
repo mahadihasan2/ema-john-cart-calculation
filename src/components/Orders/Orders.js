@@ -7,13 +7,20 @@ import OrderReview from '../OrderReview/OrderReview';
 const Orders = () => {
     const [products] = useProducts()
     const [cart,setCart] = useCart(products)
+
+    const handleRemoveProduct=(product)=>{
+        console.log(product)
+        const rest = cart.filter(pd=>pd.id!==product.id)
+        setCart(rest)
+    }
     return (
         <div className='shop-container'>
-            <div className="products-container">
+            <div className="products-review-container">
                 {
                     cart.map(product=><OrderReview
                         key = {product.id}
                         product= {product}
+                        handleRemoveProduct = {handleRemoveProduct}
                     ></OrderReview>)
                 }
             </div>
