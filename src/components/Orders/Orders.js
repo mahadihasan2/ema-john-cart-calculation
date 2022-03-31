@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useProducts from '../../hooks/useProducts';
 import useCart from '../../useCart/useCart';
+import { removeFromDb } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import OrderReview from '../OrderReview/OrderReview';
 
@@ -12,6 +14,7 @@ const Orders = () => {
         console.log(product)
         const rest = cart.filter(pd=>pd.id!==product.id)
         setCart(rest)
+        removeFromDb(product.id)
     }
     return (
         <div className='shop-container'>
@@ -26,7 +29,11 @@ const Orders = () => {
             </div>
 
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart}>
+                    <Link to='/inventory'>
+                        <button>proceed checkout</button>
+                    </Link>
+                </Cart>
 
             </div>
            
